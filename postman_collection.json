@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "To-Do List API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "taskId", "value": "PASTE_TASK_ID_HERE" }
+  ],
+  "item": [
+    {
+      "name": "Get all tasks",
+      "request": { "method": "GET", "url": "{{baseUrl}}/tasks" }
+    },
+    {
+      "name": "Search tasks",
+      "request": { "method": "GET", "url": "{{baseUrl}}/tasks?search=milk&status=pending" }
+    },
+    {
+      "name": "Get one task",
+      "request": { "method": "GET", "url": "{{baseUrl}}/tasks/{{taskId}}" }
+    },
+    {
+      "name": "Create task",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/tasks",
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"Buy milk\",\n  \"description\": \"2 litres\",\n  \"priority\": \"high\",\n  \"dueDate\": \"2026-12-01\"\n}" }
+      }
+    },
+    {
+      "name": "Update task",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/tasks/{{taskId}}",
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"Buy oat milk\",\n  \"priority\": \"low\"\n}" }
+      }
+    },
+    {
+      "name": "Update status",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/tasks/{{taskId}}/status",
+        "body": { "mode": "raw", "raw": "{\n  \"status\": \"completed\"\n}" }
+      }
+    },
+    {
+      "name": "Delete task",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/tasks/{{taskId}}" }
+    },
+    {
+      "name": "Validation error (empty title)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/tasks",
+        "body": { "mode": "raw", "raw": "{\n  \"title\": \"\"\n}" }
+      }
+    }
+  ]
+}
